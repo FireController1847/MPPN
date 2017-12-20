@@ -1,0 +1,15 @@
+{
+  "name": "mppn-base",
+  "version": "1.0.0",
+  "description": "The base module for MPPN.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test/TestClient.js"
+  },
+  "author": "FireController#1847",
+  "license": "MIT",
+  "dependencies": {
+    "https-proxy-agent": "^2.1.1",
+    "ws": "^3.3.3"
+  }
+}
