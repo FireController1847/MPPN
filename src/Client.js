@@ -123,7 +123,7 @@ module.exports = class MPPClient extends EventEmitter {
       "headers": {"origin": "http://www.multiplayerpiano.com"},
       "agent": this.agent
     });
-    this.ws.on("close", e => {
+    this.ws.addEventListener("close", e => {
       this.user = undefined;
       this.participantId = undefined;
       this.channel = undefined;
@@ -145,11 +145,11 @@ module.exports = class MPPClient extends EventEmitter {
       const ms = ms_lut[idx];
       setTimeout(this.connect.bind(this), ms);
     });
-    this.ws.on("error", e => {
-      this.emit("error", e);
+    this.ws.addEventListener("error", e => {
+      this.emit("clienterror", e);
       this.emit("close");
     });
-    this.ws.on("open", e => {
+    this.ws.addEventListener("open", e => {
       this.connectionTime = Date.now();
       this.sendArray([{m: "hi"}]);
       this.pingInterval = setInterval(() => {
@@ -167,15 +167,15 @@ module.exports = class MPPClient extends EventEmitter {
       this.emit("connect");
       this.emit("status", "Joining channel...");
     });
-    this.ws.on("message", e => {
+    this.ws.addEventListener("message", e => {
       try {
         const transmission = JSON.parse(e.data);
         for (let i = 0; i < transmission.length; i++) {
           const msg = transmission[i];
           this.emit(msg.m, msg);
         }
-      } catch(e) {
-        this.emit("error", e);
+      } catch(err) {
+        this.emit("clienterror", err);
       }
     });
     return this.ws;
