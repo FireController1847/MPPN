@@ -1,15 +1,16 @@
 {
-  "name": "mppn-base",
-  "version": "1.1.1",
-  "description": "The base module for MPPN.",
+  "name": "mppn-proxy",
+  "version": "1.0.0",
+  "description": "My personal proxies launcher on the base of MPPA.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./test/TestClient.js"
+    "start": "node ./lib/Proxy.js"
   },
   "author": "FireController#1847",
   "license": "MIT",
   "dependencies": {
     "https-proxy-agent": "^2.1.1",
+    "lodash": "^4.17.4",
     "ws": "^3.3.3"
   }
 }

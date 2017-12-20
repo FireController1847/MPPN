@@ -180,6 +180,10 @@ module.exports = class MPPClient extends EventEmitter {
     });
     return this.ws;
   }
+  destroy() {
+    this.ws.close();
+    this.ws = null;
+  }
   disconnect() {
     this.canConnect = false;
     if (this.ws) return this.ws.close();
