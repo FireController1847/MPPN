@@ -1,6 +1,6 @@
 {
   "name": "mppn-base",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "The base module for MPPN.",
   "main": "./src/index.js",
   "scripts": {
