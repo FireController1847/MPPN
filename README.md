@@ -5,7 +5,7 @@ Multiplayer Piano Node.js
 Download both User.js and Client.js, this is not a Node.js module, but a manual file. For more details on how to use check the example blow.
 
 # Example
-## User Example
+### User Example
 ```js
 // User.js and Client.js must be in the same file to use User.
 const User = require("./User.js");
@@ -21,9 +21,10 @@ const user = new User(options);
 user.on("ready", () => {
   // Client created and connected.
 });
+user.connect();
 ```
 
-## Client Example
+### Client Example
 ```js
 // You should only use the client if you want pure MPP source with no utilities/extensions that the user file gives you.
 const Client = require("./Client.js");
@@ -36,4 +37,18 @@ const client = new Client(options);
 client.on("ready", () => {
   // Client created and connected.
 });
+client.connect();
 ```
+
+# Q&A
+### Why use this instead of making my own?
+Well, the Client.js has been updated to Node.js ES6 standards, which means there's more opportunities for modification. It's also got multiple buxfixes that the original client.js would error on due to it not being Node.js compatible. I also added an extra event called "ready" that gets called when the bot *first* connects to a room.
+
+### Why use User.js instead of Client.js?
+The User.js is an extension of the Client.js which adds more utility functions like .sendMessage and .setUsername. More utility functions are to come in the future. It will also have other utilities through the options, such as setting the initial channel and setting a username on ready. No more needing to call `client.setChannel()` or `client.setUsername()` before creating it.
+
+### Will this ever become a Node.js module?
+I actually do have plans to eventually make this into a compatible Node.js module, where you could then just do require("MPPN").Client or require("MPPN").User. This is in the far future though.
+
+### Why is there no start() function?
+Because within the actual client, it was unessecary and useless. The function has been renamed to `connect()`, to make more sense. You can also call disconnect(), but due to a function within the original client.js it will attempt to auto-reconnect.
