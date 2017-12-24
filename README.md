@@ -9,7 +9,7 @@ Download both User.js and Client.js, this is not a Node.js module, but a manual 
 ### User Example
 ```js
 // User.js and Client.js must be in the same file to use User.
-const User = require("MPPN").User;
+const User = require("mppn-base").User;
 const options = {
   // Client.js / User.js
   "uri": "ws://www.multiplayerpiano.com/", // This usually is not required unless you want to change the internal connection URL.
@@ -28,7 +28,7 @@ user.connect();
 ### Client Example
 ```js
 // You should only use the client if you want pure MPP source with no utilities/extensions that the user file gives you.
-const Client = require("MPPN").Client;
+const Client = require("mppn-base").Client;
 // User utilities in the options are not available when using the client.
 const options = {
   "uri": "See Above",
