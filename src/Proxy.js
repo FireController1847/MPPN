@@ -1,4 +1,4 @@
-const User = require("../src/User.js");
+const User = require("mppn-base").User;
 const url = require("url");
 const fs = require("fs");
 const _ = require("lodash");
@@ -58,8 +58,7 @@ function verify(master, data, i) {
 // Main
 const master = new User({
   "name": "ProxyListS Master",
-  "channel": channel,
-  "proxy": "http://209.250.224.48:8080/"
+  "channel": channel
 });
 master.on("status", s => {
   if (s.toLowerCase().includes("connecting")) {
@@ -93,7 +92,7 @@ master.on("ready", () => {
         const useNew = false;
         master.sendMessage("Verification of Proxies now running.");
         const input = JSON.parse(fs.readFileSync(`${__dirname}/ProxyInput.json`));
-        const hostexists = input.indexOf(url.parse(master.proxy).host);
+        const hostexists = (master.proxy ? input.indexOf(url.parse(master.proxy).host) : -1);
         if (hostexists != -1 && input[hostexists]) {
           input.splice(hostexists, 1);
           master.sendMessage("Host IP was found in verification list. Removed when testing.");
@@ -119,20 +118,19 @@ master.on("ready", () => {
             let slave = new User({
               "name": `Proxy Verifier @ ${input[i]}`,
               "channel": channelTest,
-              "proxy": "http://" + input[i] + "/",
-              "uri": "ws://www.multiplayerpiano.com:8080/"
+              "proxy": "http://" + input[i] + "/"
             });
             slave.once("ready", () => {
               console.log(`Slave sucess @ ${input[i]}`);
               success++;
               output.push(input[i]);
-              if (slave) slave.destroy();
+              if (slave) slave.disconnect();
               slave = null;
             });
             slave.on("clienterror", () => {
               console.log(`Slave failure @ ${input[i]}`);
               failed++;
-              if (slave) slave.destroy();
+              if (slave) slave.disconnect();
               slave = null;
             });
             slave.connect();
