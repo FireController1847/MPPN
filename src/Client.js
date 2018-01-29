@@ -27,6 +27,7 @@ module.exports = class MPPClient extends EventEmitter {
     this.noteBufferTime = 0;
     this.noteFlushInterval = undefined;
     this.firstTimeConnect = true;
+    this.destroyed = false;
 
     this.eventalize();
     this.emit("status", "(Offline mode)");
@@ -111,7 +112,7 @@ module.exports = class MPPClient extends EventEmitter {
   // Client
   connect() {
     this.canConnect = true;
-    if (!this.canConnect || !this.isSupported() || this.isConnected() || this.isConnecting()) 
+    if (!this.canConnect || !this.isSupported() || this.isConnected() || this.isConnecting() || this.destroyed) 
       return;
     this.firstTimeConnect = true;
     this.emit("status", "Connecting...");
@@ -183,6 +184,9 @@ module.exports = class MPPClient extends EventEmitter {
   disconnect() {
     this.canConnect = false;
     if (this.ws) return this.ws.close();
+  }
+  destroy() {
+    this.destroyed = true;
   }
 
   // Utilities
