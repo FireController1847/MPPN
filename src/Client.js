@@ -121,7 +121,10 @@ module.exports = class MPPClient extends EventEmitter {
       "port": url.parse(this.proxy).port
     })));
     this.ws = new WebSocket(this.uri, {
-      "headers": {"origin": "http://www.multiplayerpiano.com"},
+      "headers": {
+        "origin": "http://www.multiplayerpiano.com",
+        "user-agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36"
+      },
       "agent": this.agent
     });
     this.ws.addEventListener("close", e => {
