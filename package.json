@@ -6,6 +6,10 @@
   "scripts": {
     "test": "node ./test/TestClient.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FireController1847/MPPN.git"
+  },
   "author": "FireController#1847",
   "license": "MIT",
   "dependencies": {
