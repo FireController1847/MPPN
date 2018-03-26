@@ -1,6 +1,6 @@
 {
   "name": "mppn-base",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "A client for http://www.multiplayerpiano.com/ for Node.js.",
   "main": "./src/index.js",
   "scripts": {
